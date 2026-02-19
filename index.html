@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare Pro — Hospital Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Ambient Background Layer -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="ambient-orb ambient-orb--1"></div>
+        <div class="ambient-orb ambient-orb--2"></div>
+        <div class="ambient-orb ambient-orb--3"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <div class="app-shell">
+
+        <!-- ═══════════════════════════════════════════
+             SIDEBAR NAVIGATION
+        ═══════════════════════════════════════════ -->
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+            <!-- Logo / Brand -->
+            <div class="sidebar-brand">
+                <div class="brand-mark">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <rect width="36" height="36" rx="10" fill="url(#brandGrad)"/>
+                        <path d="M18 9v18M9 18h18" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="brandGrad" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#0ea5e9"/>
+                                <stop offset="1" stop-color="#0d9488"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">MediCare</span>
+                    <span class="brand-tag">Pro Suite</span>
+                </div>
+                <button class="sidebar-collapse-btn" id="sidebarCollapseBtn" aria-label="Collapse sidebar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+            </div>
+
+            <!-- Quick Stats Pill -->
+            <div class="sidebar-stats-pill">
+                <div class="pill-stat">
+                    <span class="pill-dot pill-dot--green"></span>
+                    <span class="pill-label">System Active</span>
+                </div>
+                <span class="pill-divider"></span>
+                <span class="pill-time" id="sidebarClock">--:--</span>
+            </div>
+
+            <!-- Navigation Sections -->
+            <nav class="sidebar-nav" role="navigation">
+                <span class="nav-section-label">Overview</span>
+                <a href="#" class="nav-item active" data-page="dashboard" title="Dashboard">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                            <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Dashboard</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <span class="nav-section-label">Management</span>
+                <a href="#" class="nav-item" data-page="patients" title="Patients">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Patients</span>
+                    <span class="nav-badge" id="patientBadge" aria-label="patient count">0</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <a href="#" class="nav-item" data-page="doctors" title="Doctors">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Doctors</span>
+                    <span class="nav-badge" id="doctorBadge" aria-label="doctor count">0</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <a href="#" class="nav-item" data-page="appointments" title="Appointments">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Appointments</span>
+                    <span class="nav-badge" id="appointmentBadge" aria-label="appointment count">0</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <span class="nav-section-label">Operations</span>
+                <a href="#" class="nav-item" data-page="billing" title="Billing">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                            <line x1="2" y1="10" x2="22" y2="10"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Billing</span>
+                    <span class="nav-badge nav-badge--warning" id="billingBadge">0</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <a href="#" class="nav-item" data-page="inventory" title="Inventory">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Inventory</span>
+                    <span class="nav-glow"></span>
+                </a>
+
+                <a href="#" class="nav-item" data-page="reports" title="Reports">
+                    <span class="nav-icon">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                    </span>
+                    <span class="nav-label">Reports</span>
+                    <span class="nav-glow"></span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <button class="theme-toggle-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle light/dark theme">
+                    <span class="theme-icon theme-icon--dark">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </span>
+                    <span class="theme-icon theme-icon--light" style="display:none">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </span>
+                    <span class="theme-label">Light Mode</span>
+                </button>
+
+                <div class="sidebar-user">
+                    <div class="user-avatar" aria-hidden="true">PR</div>
+                    <div class="user-meta">
+                        <span class="user-name">Pranjal</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <button class="user-options-btn" title="User options" aria-haspopup="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ═══════════════════════════════════════════
+             MAIN CONTENT
+        ═══════════════════════════════════════════ -->
+        <main class="main-content" id="mainContent">
+
+            <!-- Top Header Bar -->
+            <header class="topbar" role="banner">
+                <div class="topbar-left">
+                    <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                    <div class="breadcrumb" aria-label="breadcrumb">
+                        <span class="breadcrumb-root">MediCare</span>
+                        <span class="breadcrumb-sep">›</span>
+                        <span class="breadcrumb-current" id="breadcrumbCurrent">Dashboard</span>
+                    </div>
+                </div>
+
+                <div class="topbar-center">
+                    <div class="global-search-wrap" role="search">
+                        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="search" id="globalSearch" class="global-search-input" placeholder="Search patients, doctors, appointments…" autocomplete="off" aria-label="Global search">
+                        <kbd class="search-shortcut" aria-hidden="true">⌘K</kbd>
+                        <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search results" hidden></div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <!-- Live Status -->
+                    <div class="topbar-status-chip">
+                        <span class="status-pulse" aria-hidden="true"></span>
+                        <span class="status-text">Live</span>
+                    </div>
+
+                    <!-- Notifications -->
+                    <button class="icon-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                        <span class="icon-btn-badge" id="notifCount" aria-label="3 new notifications">3</span>
+                    </button>
+
+                    <!-- Notification Panel -->
+                    <div class="notif-panel" id="notifPanel" role="dialog" aria-label="Notifications" hidden>
+                        <div class="notif-header">
+                            <h4>Notifications</h4>
+                            <button class="notif-clear-all" id="clearAllNotif">Clear all</button>
+                        </div>
+                        <div class="notif-list" id="notifList">
+                            <div class="notif-item notif-item--unread" data-notif-id="1">
+                                <span class="notif-dot" aria-hidden="true"></span>
+                                <div class="notif-body">
+                                    <p class="notif-title">New patient admitted</p>
+                                    <p class="notif-desc">Aanya Sharma — Ward B, Bed 12</p>
+                                    <time class="notif-time">2 min ago</time>
+                                </div>
+                            </div>
+                            <div class="notif-item notif-item--unread" data-notif-id="2">
+                                <span class="notif-dot" aria-hidden="true"></span>
+                                <div class="notif-body">
+                                    <p class="notif-title">Appointment overdue</p>
+                                    <p class="notif-desc">Dr. Mehra – Patient pending check-in</p>
+                                    <time class="notif-time">15 min ago</time>
+                                </div>
+                            </div>
+                            <div class="notif-item notif-item--unread" data-notif-id="3">
+                                <span class="notif-dot" aria-hidden="true"></span>
+                                <div class="notif-body">
+                                    <p class="notif-title">Low inventory alert</p>
+                                    <p class="notif-desc">Paracetamol stock below threshold</p>
+                                    <time class="notif-time">1 hr ago</time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <button class="icon-btn" title="Settings" aria-label="Settings">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </button>
+
+                    <!-- User Menu -->
+                    <div class="topbar-user" id="topbarUser">
+                        <div class="topbar-avatar" aria-hidden="true">PR</div>
+                        <div class="topbar-user-info">
+                            <span class="topbar-username">Pranjal</span>
+                            <span class="topbar-userrole">Admin</span>
+                        </div>
+                        <div class="user-dropdown" id="userDropdown" role="menu" hidden>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                Profile Settings
+                            </a>
+                            <a href="#" class="dropdown-item" role="menuitem">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                Help & Support
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-item--danger" role="menuitem">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                                Sign Out
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ═══════════════════ PAGE CONTENT ═══════════════════ -->
+            <div class="page-content" id="pageContent">
+
+                <!-- ─── DASHBOARD PAGE ─── -->
+                <section id="dashboard-page" class="page active" aria-label="Dashboard">
+
+                    <!-- Page Heading -->
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Good morning, Pranjal <span class="wave-emoji">👋</span></h1>
+                            <p class="page-sub">Here's what's happening across your hospital today.</p>
+                        </div>
+                        <div class="heading-actions">
+                            <span class="date-chip" id="todayDate">Loading…</span>
+                            <button class="btn-outline btn-sm">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- KPI Stat Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card" data-stat="patients">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Total Patients</span>
+                                <span class="kpi-icon kpi-icon--blue">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                </span>
+                            </div>
+                            <p class="kpi-value" id="totalPatients">0</p>
+                            <div class="kpi-footer">
+                                <span class="kpi-trend kpi-trend--up">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                                    +2 this month
+                                </span>
+                                <div class="kpi-sparkline" aria-hidden="true">
+                                    <svg viewBox="0 0 80 24" preserveAspectRatio="none" class="sparkline sparkline--blue">
+                                        <polyline points="0,20 15,16 30,12 45,8 60,10 80,4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-stat="doctors">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Doctors on Duty</span>
+                                <span class="kpi-icon kpi-icon--teal">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                </span>
+                            </div>
+                            <p class="kpi-value" id="doctorsOnDuty">0</p>
+                            <div class="kpi-footer">
+                                <span class="kpi-trend kpi-trend--up">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+                                    1 newly available
+                                </span>
+                                <div class="kpi-sparkline" aria-hidden="true">
+                                    <svg viewBox="0 0 80 24" preserveAspectRatio="none" class="sparkline sparkline--teal">
+                                        <polyline points="0,18 15,14 30,18 45,10 60,14 80,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-stat="appointments">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Appointments Today</span>
+                                <span class="kpi-icon kpi-icon--violet">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                </span>
+                            </div>
+                            <p class="kpi-value" id="appointmentsToday">0</p>
+                            <div class="kpi-footer">
+                                <span class="kpi-trend kpi-trend--down">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                                    3 completed
+                                </span>
+                                <div class="kpi-sparkline" aria-hidden="true">
+                                    <svg viewBox="0 0 80 24" preserveAspectRatio="none" class="sparkline sparkline--violet">
+                                        <polyline points="0,8 15,12 30,6 45,14 60,10 80,16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" data-stat="beds">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Available Beds</span>
+                                <span class="kpi-icon kpi-icon--amber">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                </span>
+                            </div>
+                            <p class="kpi-value" id="availableBeds">15</p>
+                            <div class="kpi-footer">
+                                <span class="kpi-trend kpi-trend--neutral">85% occupancy rate</span>
+                                <div class="kpi-mini-progress" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="kpi-progress-bar" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Grid -->
+                    <div class="dash-grid">
+                        <!-- Recent Patients -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3 class="dash-card-title">Recent Patients</h3>
+                                <a href="#" class="dash-card-link" data-page-link="patients">View all →</a>
+                            </div>
+                            <div id="recentPatientsPreview" class="dash-list">
+                                <div class="empty-state">
+                                    <div class="empty-icon" aria-hidden="true">
+                                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    </div>
+                                    <p>No patients recorded yet</p>
+                                    <span>Add your first patient to get started</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Appointments -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3 class="dash-card-title">Active Appointments</h3>
+                                <a href="#" class="dash-card-link" data-page-link="appointments">View all →</a>
+                            </div>
+                            <div id="activeAppointmentsPreview" class="dash-list">
+                                <div class="empty-state">
+                                    <div class="empty-icon" aria-hidden="true">
+                                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                    </div>
+                                    <p>No appointments scheduled</p>
+                                    <span>Book an appointment to see it here</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bed Occupancy Widget -->
+                        <div class="dash-card dash-card--accent">
+                            <div class="dash-card-header">
+                                <h3 class="dash-card-title">Bed Occupancy</h3>
+                                <span class="dash-chip">Live</span>
+                            </div>
+                            <div class="bed-occupancy-visual">
+                                <div class="occupancy-ring-wrap">
+                                    <svg class="occupancy-ring" viewBox="0 0 120 120" aria-label="85% bed occupancy">
+                                        <circle class="ring-track" cx="60" cy="60" r="48" fill="none" stroke-width="10"/>
+                                        <circle class="ring-fill" id="occupancyRingFill" cx="60" cy="60" r="48" fill="none" stroke-width="10"
+                                            stroke-dasharray="301.6" stroke-dashoffset="45.24"
+                                            stroke-linecap="round" transform="rotate(-90 60 60)"/>
+                                        <text x="60" y="55" text-anchor="middle" class="ring-pct" aria-hidden="true">85%</text>
+                                        <text x="60" y="72" text-anchor="middle" class="ring-label" aria-hidden="true">Occupied</text>
+                                    </svg>
+                                </div>
+                                <div class="occupancy-stats">
+                                    <div class="occ-stat">
+                                        <span class="occ-dot occ-dot--green"></span>
+                                        <span class="occ-label">Available</span>
+                                        <span class="occ-val" id="occAvail">15</span>
+                                    </div>
+                                    <div class="occ-stat">
+                                        <span class="occ-dot occ-dot--red"></span>
+                                        <span class="occ-label">Occupied</span>
+                                        <span class="occ-val" id="occUsed">85</span>
+                                    </div>
+                                    <div class="occ-stat">
+                                        <span class="occ-dot occ-dot--yellow"></span>
+                                        <span class="occ-label">Maintenance</span>
+                                        <span class="occ-val">3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Availability -->
+                        <div class="dash-card">
+                            <div class="dash-card-header">
+                                <h3 class="dash-card-title">Doctor Status</h3>
+                                <a href="#" class="dash-card-link" data-page-link="doctors">View all →</a>
+                            </div>
+                            <div id="doctorStatusPreview" class="dash-list">
+                                <div class="empty-state">
+                                    <div class="empty-icon" aria-hidden="true">
+                                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                    </div>
+                                    <p>No doctors on record</p>
+                                    <span>Add doctors to track their availability</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── PATIENTS PAGE ─── -->
+                <section id="patients-page" class="page" aria-label="Patient Management" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Patient Management</h1>
+                            <p class="page-sub">Manage and monitor all patient records</p>
+                        </div>
+                        <button class="btn-primary btn-with-icon" id="addPatientBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add Patient
+                        </button>
+                    </div>
+
+                    <!-- Filter Bar -->
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="patientSearch" class="filter-search" placeholder="Search by name or phone…" aria-label="Search patients">
+                        </div>
+                        <div class="filter-selects">
+                            <select id="patientFilter" class="filter-select" aria-label="Filter by status">
+                                <option value="">All Statuses</option>
+                                <option value="active">Active</option>
+                                <option value="discharged">Discharged</option>
+                            </select>
+                            <select id="patientGenderFilter" class="filter-select" aria-label="Filter by gender">
+                                <option value="">All Genders</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-view-toggle">
+                            <button class="view-btn active" data-view="table" aria-label="Table view" aria-pressed="true">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+                            </button>
+                            <button class="view-btn" data-view="cards" aria-label="Card view" aria-pressed="false">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Patient Count Row -->
+                    <div class="data-meta-row">
+                        <span class="data-count" id="patientCountLabel">Showing <strong>0</strong> patients</span>
+                        <button class="btn-ghost btn-sm">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export
+                        </button>
+                    </div>
+
+                    <!-- Table View -->
+                    <div class="table-wrap" id="patientTableWrap">
+                        <table class="data-table" id="patientsTable" aria-label="Patient records">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="th-check"><input type="checkbox" id="selectAllPatients" aria-label="Select all patients"></th>
+                                    <th scope="col" class="th-sortable" data-col="name">Patient <span class="sort-icon">↕</span></th>
+                                    <th scope="col" class="th-sortable" data-col="age">Age <span class="sort-icon">↕</span></th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Condition</th>
+                                    <th scope="col" class="th-sortable" data-col="admissionDate">Admitted <span class="sort-icon">↕</span></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="th-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientTableBody">
+                                <tr class="empty-table-row">
+                                    <td colspan="9">
+                                        <div class="table-empty-state">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                            <p>No patients found</p>
+                                            <span>Click "Add Patient" to register your first patient</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Card View (hidden by default) -->
+                    <div class="cards-grid" id="patientCardsGrid" hidden></div>
+
+                    <!-- Pagination -->
+                    <div class="pagination-bar" id="patientPagination" hidden>
+                        <button class="page-btn" id="patientPrevPage" aria-label="Previous page" disabled>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                        <span class="page-info" id="patientPageInfo">Page 1 of 1</span>
+                        <button class="page-btn" id="patientNextPage" aria-label="Next page" disabled>
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ─── DOCTORS PAGE ─── -->
+                <section id="doctors-page" class="page" aria-label="Doctor Management" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Doctor Management</h1>
+                            <p class="page-sub">Manage profiles and availability schedules</p>
+                        </div>
+                        <button class="btn-primary btn-with-icon" id="addDoctorBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add Doctor
+                        </button>
+                    </div>
+
+                    <!-- Availability Quick Tabs -->
+                    <div class="quick-tabs" role="tablist" aria-label="Filter by availability">
+                        <button class="quick-tab active" data-avail="" role="tab" aria-selected="true">All</button>
+                        <button class="quick-tab" data-avail="Available" role="tab" aria-selected="false">
+                            <span class="tab-dot tab-dot--green"></span> Available
+                        </button>
+                        <button class="quick-tab" data-avail="Busy" role="tab" aria-selected="false">
+                            <span class="tab-dot tab-dot--red"></span> Busy
+                        </button>
+                        <button class="quick-tab" data-avail="On Leave" role="tab" aria-selected="false">
+                            <span class="tab-dot tab-dot--yellow"></span> On Leave
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="doctorSearch" class="filter-search" placeholder="Search by name or specialization…" aria-label="Search doctors">
+                        </div>
+                        <select id="doctorSpecFilter" class="filter-select" aria-label="Filter by specialization">
+                            <option value="">All Specializations</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="General Surgery">General Surgery</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Oncology">Oncology</option>
+                        </select>
+                    </div>
+
+                    <div class="doctors-cards-grid" id="doctorsGrid">
+                        <div class="table-empty-state full-empty">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                            <p>No doctors added yet</p>
+                            <span>Click "Add Doctor" to register your first doctor</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── APPOINTMENTS PAGE ─── -->
+                <section id="appointments-page" class="page" aria-label="Appointment Management" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Appointments</h1>
+                            <p class="page-sub">Schedule, track, and manage patient appointments</p>
+                        </div>
+                        <button class="btn-primary btn-with-icon" id="addAppointmentBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Book Appointment
+                        </button>
+                    </div>
+
+                    <div class="filter-bar">
+                        <div class="search-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="search" id="appointmentSearch" class="filter-search" placeholder="Search by patient or doctor…" aria-label="Search appointments">
+                        </div>
+                        <select id="appointmentFilter" class="filter-select" aria-label="Filter by status">
+                            <option value="">All Statuses</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="data-table" id="appointmentsTable" aria-label="Appointment records">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Patient</th>
+                                    <th scope="col">Doctor</th>
+                                    <th scope="col">Date & Time</th>
+                                    <th scope="col">Reason</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col" class="th-actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentTableBody">
+                                <tr class="empty-table-row">
+                                    <td colspan="6">
+                                        <div class="table-empty-state">
+                                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                            <p>No appointments scheduled</p>
+                                            <span>Book an appointment to see it here</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ─── BILLING PAGE ─── -->
+                <section id="billing-page" class="page" aria-label="Billing" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Billing & Invoices</h1>
+                            <p class="page-sub">Manage patient billing and payment records</p>
+                        </div>
+                        <button class="btn-primary btn-with-icon" id="addBillBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            New Invoice
+                        </button>
+                    </div>
+                    <div class="coming-soon-panel">
+                        <div class="cs-icon" aria-hidden="true">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                        </div>
+                        <h2>Billing Module</h2>
+                        <p>Full billing, invoicing, and payment tracking coming soon. Add patients first to generate invoices.</p>
+                        <div class="cs-badges">
+                            <span class="cs-badge">Invoice Generation</span>
+                            <span class="cs-badge">Payment Tracking</span>
+                            <span class="cs-badge">Insurance Claims</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── INVENTORY PAGE ─── -->
+                <section id="inventory-page" class="page" aria-label="Inventory" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Inventory</h1>
+                            <p class="page-sub">Track medical supplies and equipment stock</p>
+                        </div>
+                        <button class="btn-primary btn-with-icon" id="addInventoryBtn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            Add Item
+                        </button>
+                    </div>
+                    <div class="coming-soon-panel">
+                        <div class="cs-icon" aria-hidden="true">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <h2>Inventory Module</h2>
+                        <p>Stock management, low-inventory alerts, and supply ordering — coming soon.</p>
+                        <div class="cs-badges">
+                            <span class="cs-badge">Stock Tracking</span>
+                            <span class="cs-badge">Low Stock Alerts</span>
+                            <span class="cs-badge">Supplier Orders</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ─── REPORTS PAGE ─── -->
+                <section id="reports-page" class="page" aria-label="Reports" hidden>
+                    <div class="page-heading">
+                        <div>
+                            <h1 class="page-h1">Reports & Analytics</h1>
+                            <p class="page-sub">Data insights across all hospital operations</p>
+                        </div>
+                        <button class="btn-outline btn-with-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            Export Report
+                        </button>
+                    </div>
+                    <div class="coming-soon-panel">
+                        <div class="cs-icon" aria-hidden="true">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        </div>
+                        <h2>Reports Module</h2>
+                        <p>Visual analytics, patient trends, revenue reports, and department summaries — coming soon.</p>
+                        <div class="cs-badges">
+                            <span class="cs-badge">Patient Trends</span>
+                            <span class="cs-badge">Revenue Analytics</span>
+                            <span class="cs-badge">Department KPIs</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /page-content -->
+        </main>
+    </div><!-- /app-shell -->
+
+
+    <!-- ═══════════════════════════════════════════
+         MODALS
+    ═══════════════════════════════════════════ -->
+
+    <!-- ── Add / Edit Patient Modal ── -->
+    <div class="modal" id="patientModal" role="dialog" aria-modal="true" aria-labelledby="patientModalTitle" hidden>
+        <div class="modal-backdrop" data-close-modal="patientModal"></div>
+        <div class="modal-box modal-box--md">
+            <div class="modal-head">
+                <div class="modal-head-icon modal-head-icon--blue" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <h2 class="modal-title" id="patientModalTitle">Add New Patient</h2>
+                <button class="modal-close-btn" data-close-modal="patientModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <form id="patientForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="patientName">Full Name <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="patientName" class="form-input" required placeholder="e.g. Aanya Sharma" autocomplete="name">
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="patientAge">Age <span class="required" aria-hidden="true">*</span></label>
+                        <input type="number" id="patientAge" class="form-input" min="1" max="120" required placeholder="25">
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="patientGender">Gender <span class="required" aria-hidden="true">*</span></label>
+                        <select id="patientGender" class="form-select" required>
+                            <option value="">Select…</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patientPhone">Phone Number <span class="required" aria-hidden="true">*</span></label>
+                    <input type="tel" id="patientPhone" class="form-input" required placeholder="+91 98765 43210" autocomplete="tel">
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patientDisease">Disease / Condition <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="patientDisease" class="form-input" required placeholder="e.g. Type 2 Diabetes">
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="patientAdmissionDate">Admission Date <span class="required" aria-hidden="true">*</span></label>
+                        <input type="date" id="patientAdmissionDate" class="form-input" required>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="patientBloodGroup">Blood Group</label>
+                        <select id="patientBloodGroup" class="form-select">
+                            <option value="">Unknown</option>
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="patientNotes">Additional Notes</label>
+                    <textarea id="patientNotes" class="form-textarea" rows="2" placeholder="Allergies, prior conditions, emergency contacts…"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-ghost" data-close-modal="patientModal">Cancel</button>
+                    <button type="submit" class="btn-primary btn-with-icon" id="patientSubmitBtn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="btn-text">Save Patient</span>
+                        <span class="btn-spinner" hidden aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Add / Edit Doctor Modal ── -->
+    <div class="modal" id="doctorModal" role="dialog" aria-modal="true" aria-labelledby="doctorModalTitle" hidden>
+        <div class="modal-backdrop" data-close-modal="doctorModal"></div>
+        <div class="modal-box modal-box--md">
+            <div class="modal-head">
+                <div class="modal-head-icon modal-head-icon--teal" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <h2 class="modal-title" id="doctorModalTitle">Add New Doctor</h2>
+                <button class="modal-close-btn" data-close-modal="doctorModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <form id="doctorForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="doctorName">Full Name <span class="required" aria-hidden="true">*</span></label>
+                    <input type="text" id="doctorName" class="form-input" required placeholder="e.g. Dr. Arjun Mehra" autocomplete="name">
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="doctorSpecialization">Specialization <span class="required" aria-hidden="true">*</span></label>
+                        <select id="doctorSpecialization" class="form-select" required>
+                            <option value="">Select…</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="General Surgery">General Surgery</option>
+                            <option value="Psychiatry">Psychiatry</option>
+                            <option value="Oncology">Oncology</option>
+                            <option value="Radiology">Radiology</option>
+                            <option value="Emergency Medicine">Emergency Medicine</option>
+                        </select>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="doctorExperience">Experience (Years)</label>
+                        <input type="number" id="doctorExperience" class="form-input" min="0" max="60" placeholder="5">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="doctorAvailability">Availability <span class="required" aria-hidden="true">*</span></label>
+                        <select id="doctorAvailability" class="form-select" required>
+                            <option value="Available">Available</option>
+                            <option value="Busy">Busy</option>
+                            <option value="On Leave">On Leave</option>
+                        </select>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="doctorPhone">Phone</label>
+                        <input type="tel" id="doctorPhone" class="form-input" placeholder="+91 98765 43210" autocomplete="tel">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-ghost" data-close-modal="doctorModal">Cancel</button>
+                    <button type="submit" class="btn-primary btn-with-icon" id="doctorSubmitBtn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="btn-text">Save Doctor</span>
+                        <span class="btn-spinner" hidden aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Book / Edit Appointment Modal ── -->
+    <div class="modal" id="appointmentModal" role="dialog" aria-modal="true" aria-labelledby="appointmentModalTitle" hidden>
+        <div class="modal-backdrop" data-close-modal="appointmentModal"></div>
+        <div class="modal-box modal-box--md">
+            <div class="modal-head">
+                <div class="modal-head-icon modal-head-icon--violet" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h2 class="modal-title" id="appointmentModalTitle">Book Appointment</h2>
+                <button class="modal-close-btn" data-close-modal="appointmentModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <form id="appointmentForm" class="modal-form" novalidate>
+                <div class="form-group">
+                    <label class="form-label" for="appointmentPatient">Patient <span class="required" aria-hidden="true">*</span></label>
+                    <select id="appointmentPatient" class="form-select" required>
+                        <option value="">Select a patient…</option>
+                    </select>
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="appointmentDoctor">Doctor <span class="required" aria-hidden="true">*</span></label>
+                    <select id="appointmentDoctor" class="form-select" required>
+                        <option value="">Select a doctor…</option>
+                    </select>
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="appointmentDate">Date <span class="required" aria-hidden="true">*</span></label>
+                        <input type="date" id="appointmentDate" class="form-input" required>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="appointmentTime">Time <span class="required" aria-hidden="true">*</span></label>
+                        <input type="time" id="appointmentTime" class="form-input" required>
+                        <span class="form-error" role="alert" aria-live="polite"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="appointmentReason">Reason for Visit <span class="required" aria-hidden="true">*</span></label>
+                    <textarea id="appointmentReason" class="form-textarea" rows="3" required placeholder="Brief description of the visit reason…"></textarea>
+                    <span class="form-error" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-ghost" data-close-modal="appointmentModal">Cancel</button>
+                    <button type="submit" class="btn-primary btn-with-icon" id="appointmentSubmitBtn">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span class="btn-text">Book Appointment</span>
+                        <span class="btn-spinner" hidden aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ── Patient Detail Modal ── -->
+    <div class="modal" id="patientDetailModal" role="dialog" aria-modal="true" aria-labelledby="patientDetailTitle" hidden>
+        <div class="modal-backdrop" data-close-modal="patientDetailModal"></div>
+        <div class="modal-box modal-box--lg">
+            <div class="modal-head">
+                <h2 class="modal-title" id="patientDetailTitle">Patient Details</h2>
+                <button class="modal-close-btn" data-close-modal="patientDetailModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="patientDetailBody" class="detail-body"><!-- Populated by JS --></div>
+        </div>
+    </div>
+
+    <!-- ── Confirm / Delete Modal ── -->
+    <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle" hidden>
+        <div class="modal-backdrop" data-close-modal="confirmModal"></div>
+        <div class="modal-box modal-box--sm">
+            <div class="modal-head modal-head--danger">
+                <div class="modal-head-icon modal-head-icon--red" aria-hidden="true">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                </div>
+                <h2 class="modal-title" id="confirmModalTitle">Confirm Delete</h2>
+                <button class="modal-close-btn" data-close-modal="confirmModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-message" id="confirmMessage">Are you sure you want to delete this record? This action cannot be undone.</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-ghost" data-close-modal="confirmModal">Cancel</button>
+                <button type="button" class="btn-danger" id="confirmActionBtn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ═══════════════════════════════════════════
+         GLOBAL UI ELEMENTS
+    ═══════════════════════════════════════════ -->
+
+    <!-- Toast Container -->
+    <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="false"></div>
+
+    <!-- Global Loading Overlay -->
+    <div class="global-loader" id="globalLoader" aria-hidden="true" hidden>
+        <div class="loader-inner">
+            <svg class="loader-ring" viewBox="0 0 50 50" aria-hidden="true">
+                <circle class="loader-track" cx="25" cy="25" r="20" fill="none" stroke-width="4"/>
+                <circle class="loader-fill"  cx="25" cy="25" r="20" fill="none" stroke-width="4"
+                    stroke-dasharray="125.66" stroke-dashoffset="100.53" stroke-linecap="round"/>
+            </svg>
+            <span>Processing…</span>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
